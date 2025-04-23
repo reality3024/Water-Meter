@@ -46,17 +46,49 @@
       <label for="meter1">水表 1：</label>
       <input type="text" id="meter1" value="00000" readonly>
     </div>
-
     <div class="meter">
       <label for="meter2">水表 2：</label>
       <input type="text" id="meter2" value="00000" readonly>
     </div>
-
     <div class="meter">
       <label for="meter3">水表 3：</label>
       <input type="text" id="meter3" value="00000" readonly>
     </div>
   </div>
+
+  <!-- Firebase JS SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+
+  <script>
+    // Firebase config from your project
+    const firebaseConfig = {
+      apiKey: "AIzaSyALCNtqCR8K87M__lWnwig506Fg92GRBdI",
+      authDomain: "water-meter-24a2f.firebaseapp.com",
+      databaseURL: "https://water-meter-24a2f-default-rtdb.firebaseio.com",
+      projectId: "water-meter-24a2f",
+      storageBucket: "water-meter-24a2f.firebasestorage.app",
+      messagingSenderId: "988548593103",
+      appId: "1:988548593103:web:ce1a7b21cdb7980e3fceba"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // 即時監聽三個水表資料
+    db.ref("meters/meter1").on("value", (snapshot) => {
+      document.getElementById("meter1").value = snapshot.val() ?? "00000";
+    });
+
+    db.ref("meters/meter2").on("value", (snapshot) => {
+      document.getElementById("meter2").value = snapshot.val() ?? "00000";
+    });
+
+    db.ref("meters/meter3").on("value", (snapshot) => {
+      document.getElementById("meter3").value = snapshot.val() ?? "00000";
+    });
+  </script>
 
 </body>
 </html>
