@@ -17,7 +17,7 @@ def single_device():
     res = requests.put(url, data=json.dumps(data))
     print(res.status_code, res.text)
 
-def multiple_device_with_auth(device = None):
+def multiple_device_with_auth(device = None, meter1 = None, meter2 = None, meter3 = None):
     if device != None and device in all_device:    
         # 初始化 Firebase Admin SDK（只需一次）
         cred = credentials.Certificate("./water-meter-24a2f-firebase-adminsdk-fbsvc-61b4d8cc55.json")
@@ -40,9 +40,9 @@ def multiple_device_with_auth(device = None):
         # 3. 使用 REST API 寫入對應節點
         firebase_url = f"https://water-meter-24a2f-default-rtdb.firebaseio.com/meters/{device_uid}.json?auth={id_token}"
         data = {
-            "meter1": 3,
-            "meter2": 55,
-            "meter3": 88
+            "meter1": meter1,
+            "meter2": meter2,
+            "meter3": meter3
         }
         write_resp = requests.put(firebase_url, json=data)
 
@@ -56,7 +56,10 @@ def multiple_device_with_auth(device = None):
 
 def main():
     device = "device_esp32_B"
-    result = multiple_device_with_auth(device)
+    meter1 = 100
+    meter2 = 200
+    meter3 = 300
+    result = multiple_device_with_auth(device, meter1, meter2, meter3)
     print(result)
 
 if __name__ == '__main__':
