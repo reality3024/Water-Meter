@@ -20,7 +20,7 @@ def single_device():
 def multiple_device_with_auth(device = None, meter1 = None, meter2 = None, meter3 = None):
     if device != None and device in all_device:    
         # 初始化 Firebase Admin SDK（只需一次）
-        cred = credentials.Certificate("./water-meter-24a2f-firebase-adminsdk-fbsvc-61b4d8cc55.json")
+        cred = credentials.Certificate("./water-meter-24a2f-firebase-adminsdk-fbsvc-219db20b96.json")
         firebase_admin.initialize_app(cred)
 
         # 指定裝置的 UID，例如 "device_esp32_A"
